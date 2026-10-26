@@ -253,6 +253,7 @@ src="https://www.facebook.com/tr?id=38187844357529790&ev=PageView&noscript=1"
       urlBackRedirect.trim() +
       (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
       document.location.search.replace('?', '').toString();
+    window.__exitOfferUrl = urlBackRedirect;
 
     history.pushState({}, '', location.href);
     history.pushState({}, '', location.href);
@@ -1383,8 +1384,7 @@ html,body{opacity:1!important;visibility:visible!important}
     modal.querySelectorAll('[data-exit-close]').forEach(function (botao) {
       botao.addEventListener('click', function () {
         if (!document.getElementById('exit-offer-basic').hidden) {
-          window.__permitirSaida = true;
-          history.go(-4);
+          window.location.href = window.__exitOfferUrl;
         } else {
           mostrarOfertaSaida(2);
           return;
