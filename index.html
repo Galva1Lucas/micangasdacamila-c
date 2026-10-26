@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><script>
 (function () {
+  var bloquearAcessoDesktop = false; // Altere para true para reativar o bloqueio.
   var ua = navigator.userAgent || '';
   var mobileUserAgent = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
   var devToolsOpen = window.outerWidth - window.innerWidth > 160 ||
@@ -8,7 +9,7 @@
 
   // Oculta a página inteira imediatamente para evitar qualquer "piskada"
   var earlyStyle = document.createElement('style');
-  if (!mobileUserAgent || devToolsOpen) {
+  if (bloquearAcessoDesktop && (!mobileUserAgent || devToolsOpen)) {
     earlyStyle.textContent = 'body { display: none !important; background: #ffffff !important; }';
   } else {
     earlyStyle.textContent = 'body { display: block !important; }';
@@ -49,7 +50,7 @@
     document.documentElement.appendChild(screen);
   }
 
-  if (!mobileUserAgent || devToolsOpen) {
+  if (bloquearAcessoDesktop && (!mobileUserAgent || devToolsOpen)) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', showNotFound);
     } else {
