@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><script>
 (function () {
-  var bloquearAcessoDesktop = false; // Altere para true para reativar o bloqueio.
+  var bloquearAcessoDesktop = true; // Altere para false para liberar temporariamente.
   var ua = navigator.userAgent || '';
   var mobileUserAgent = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
   var devToolsOpen = window.outerWidth - window.innerWidth > 160 ||
@@ -264,8 +264,9 @@ src="https://www.facebook.com/tr?id=38187844357529790&ev=PageView&noscript=1"
       if (window.__permitirSaida) return;
       if (window.__indoParaCheckout) return;
 
+      const mobile = window.matchMedia('(max-width: 820px) and (pointer: coarse)').matches;
       const popupSaida = document.getElementById('exit-offer');
-      if (window.__viuPrecos && popupSaida) {
+      if (mobile && window.__viuPrecos && popupSaida) {
         history.pushState({}, '', location.href);
         if (popupSaida.hidden) mostrarOfertaSaida(1);
         return;
