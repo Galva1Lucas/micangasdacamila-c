@@ -239,9 +239,9 @@ src="https://www.facebook.com/tr?id=38187844357529790&ev=PageView&noscript=1"
          R$ 8,99   segunda oferta de saída no mobile
      Falta ainda: e-mail de contato e CNPJ no rodapé.
      ============================================================ -->
-<!-- Saída convencional e sequência de ofertas no mobile após visualizar os preços. -->
+<!-- Saída convencional e sequência de ofertas após visualizar os preços. -->
 <script>
-  // Destino de saída mantido para desktop e para quem recusar as ofertas no mobile.
+  // Destino de saída para quem recusar as ofertas no mobile ou no desktop.
   const link = 'https://micangasdacamila-c.vercel.app/promo';
 
   window.__indoParaCheckout = false;
@@ -264,9 +264,8 @@ src="https://www.facebook.com/tr?id=38187844357529790&ev=PageView&noscript=1"
       if (window.__permitirSaida) return;
       if (window.__indoParaCheckout) return;
 
-      const mobile = window.matchMedia('(max-width: 820px) and (pointer: coarse)').matches;
       const popupSaida = document.getElementById('exit-offer');
-      if (mobile && window.__viuPrecos && popupSaida) {
+      if (window.__viuPrecos && popupSaida) {
         history.pushState({}, '', location.href);
         if (popupSaida.hidden) mostrarOfertaSaida(1);
         return;
