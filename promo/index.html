@@ -196,6 +196,39 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=38187844357529790&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<script>
+(function () {
+  function getFbc() {
+    var cookie = document.cookie.match(/(?:^|;\s*)_fbc=([^;]+)/);
+    if (cookie) return cookie[1];
+
+    var params = new URLSearchParams(window.location.search);
+    var fbc = params.get('fbc');
+    if (fbc) return fbc;
+
+    var fbclid = params.get('fbclid');
+    return fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : null;
+  }
+
+  function appendFbc(href) {
+    var fbc = getFbc();
+    if (!fbc) return href;
+
+    var url = new URL(href, window.location.href);
+    if (url.hostname !== 'pay.cakto.com.br' || url.searchParams.has('fbc')) return href;
+
+    url.searchParams.set('fbc', fbc);
+    return url.href;
+  }
+
+  document.addEventListener('click', function (event) {
+    var link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (link) link.href = appendFbc(link.href);
+  }, true);
+
+  window.__appendMetaFbcToCheckout = appendFbc;
+})();
+</script>
 <meta content="Última chance: a Coleção Completa com os 100 projetos e os 6 bônus por R$ 9,99. Só nesta página." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
